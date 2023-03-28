@@ -1,7 +1,7 @@
 internal class Board
 {
-    private const int _numRows = 10;
-    private const int _numCols = 10;
+    public const int NumRows = 10;
+    public const int NumColumns = 10;
     private readonly CellState[,] _cells;
     private readonly List<Ship> _ships;
 
@@ -10,11 +10,11 @@ internal class Board
 
     public Board()
     {
-        _cells = new CellState[_numRows, _numCols];
+        _cells = new CellState[NumRows, NumColumns];
         _ships = new List<Ship>();
 
-        for (int row = 0; row < _numRows; row++)
-            for (int col = 0; col < _numCols; col++)
+        for (int row = 0; row < NumRows; row++)
+            for (int col = 0; col < NumColumns; col++)
                 _cells[row, col] = CellState.NotTargeted;
     }
 
@@ -58,8 +58,8 @@ internal class Board
 
     public static bool IsLocationValid(Location location)
     {
-        bool rowInBounds = location.Row >= 0 && location.Row < _numRows;
-        bool colInBounds = location.Column >= 0 && location.Column < _numCols;
+        bool rowInBounds = location.Row >= 0 && location.Row < NumRows;
+        bool colInBounds = location.Column >= 0 && location.Column < NumColumns;
 
         return rowInBounds && colInBounds;
     }
