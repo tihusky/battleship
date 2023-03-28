@@ -16,13 +16,24 @@ internal class Board
         for (int row = 0; row < _numRows; row++)
             for (int col = 0; col < _numCols; col++)
                 _cells[row, col] = CellState.NotTargeted;
+    }
 
-        _ships.Add(
-            new Ship(
-                ShipType.Submarine,
-                new List<Location> { Location.FromString("A4"), Location.FromString("A5") }
-            )
-        );
+    public bool AddShip(Ship newShip)
+    {
+        foreach (Location loc in newShip.Cells)
+        {
+            if (!Board.IsLocationValid(loc))
+                throw new ArgumentOutOfRangeException();
+
+            // Check if one of the existing ships occupies the same location
+            foreach (Ship ship in _ships)
+                if (ship.Cells.Contains(loc))
+                    return false;
+        }
+
+        _ships.Add(newShip);
+
+        return true;
     }
 
     public bool ResolveShot(Location location)
