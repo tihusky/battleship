@@ -36,7 +36,7 @@ internal class Board
         return true;
     }
 
-    public bool ResolveShot(Location location)
+    public ShotResult ResolveShot(Location location)
     {
         if (!IsLocationValid(location))
             throw new ArgumentOutOfRangeException();
@@ -47,13 +47,16 @@ internal class Board
             {
                 _cells[location.Row, location.Column] = CellState.Hit;
 
-                return true;
+                // Check if the ship has been sunk
+                bool isSunk = ship.Cells.TrueForAll(location => _cells[location.Row, location.Column] == CellState.Hit);
+
+                return new ShotResult { ShipType = ship.Type, ShipSunk = isSunk };
             }
         }
 
         _cells[location.Row, location.Column] = CellState.Miss;
 
-        return false;
+        return new ShotResult { ShipType = null, ShipSunk = false };
     }
 
     public static bool IsLocationValid(Location location)
