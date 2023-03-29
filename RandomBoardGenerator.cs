@@ -37,20 +37,9 @@ internal class RandomBoardGenerator : IBoardGenerator
 
         while (true)
         {
-            List<Location> shipCells = new List<Location> { GetRandomLocation() };
+            List<Location> shipCells = GetShipCells(orientation, 2);
 
-            if (orientation == ShipOrientation.Horizontal)
-            {
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 1 });
-            }
-            else
-            {
-                shipCells.Add(new Location { Row = shipCells[0].Row + 1, Column = shipCells[0].Column });
-            }
-
-            bool allLocationsValid = shipCells.TrueForAll(Board.IsLocationValid);
-
-            if (!allLocationsValid)
+            if (!shipCells.TrueForAll(Board.IsLocationValid))
                 continue;
 
             if (board.AddShip(new Ship(ShipType.Submarine, shipCells)))
@@ -64,22 +53,9 @@ internal class RandomBoardGenerator : IBoardGenerator
 
         while (true)
         {
-            List<Location> shipCells = new List<Location> { GetRandomLocation() };
+            List<Location> shipCells = GetShipCells(orientation, 3);
 
-            if (orientation == ShipOrientation.Horizontal)
-            {
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 1 });
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 2 });
-            }
-            else
-            {
-                shipCells.Add(new Location { Row = shipCells[0].Row + 1, Column = shipCells[0].Column });
-                shipCells.Add(new Location { Row = shipCells[0].Row + 2, Column = shipCells[0].Column });
-            }
-
-            bool allLocationsValid = shipCells.TrueForAll(Board.IsLocationValid);
-
-            if (!allLocationsValid)
+            if (!shipCells.TrueForAll(Board.IsLocationValid))
                 continue;
 
             if (board.AddShip(new Ship(ShipType.Cruiser, shipCells)))
@@ -93,20 +69,7 @@ internal class RandomBoardGenerator : IBoardGenerator
 
         while (true)
         {
-            List<Location> shipCells = new List<Location> { GetRandomLocation() };
-
-            if (orientation == ShipOrientation.Horizontal)
-            {
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 1 });
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 2 });
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 3 });
-            }
-            else
-            {
-                shipCells.Add(new Location { Row = shipCells[0].Row + 1, Column = shipCells[0].Column });
-                shipCells.Add(new Location { Row = shipCells[0].Row + 2, Column = shipCells[0].Column });
-                shipCells.Add(new Location { Row = shipCells[0].Row + 3, Column = shipCells[0].Column });
-            }
+            List<Location> shipCells = GetShipCells(orientation, 4);
 
             if (!shipCells.TrueForAll(Board.IsLocationValid))
                 continue;
@@ -122,22 +85,7 @@ internal class RandomBoardGenerator : IBoardGenerator
 
         while (true)
         {
-            List<Location> shipCells = new List<Location> { GetRandomLocation() };
-
-            if (orientation == ShipOrientation.Horizontal)
-            {
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 1 });
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 2 });
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 3 });
-                shipCells.Add(new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + 4 });
-            }
-            else
-            {
-                shipCells.Add(new Location { Row = shipCells[0].Row + 1, Column = shipCells[0].Column });
-                shipCells.Add(new Location { Row = shipCells[0].Row + 2, Column = shipCells[0].Column });
-                shipCells.Add(new Location { Row = shipCells[0].Row + 3, Column = shipCells[0].Column });
-                shipCells.Add(new Location { Row = shipCells[0].Row + 4, Column = shipCells[0].Column });
-            }
+            List<Location> shipCells = GetShipCells(orientation, 5);
 
             if (!shipCells.TrueForAll(Board.IsLocationValid))
                 continue;
@@ -162,6 +110,27 @@ internal class RandomBoardGenerator : IBoardGenerator
         int col = _rng.Next(0, Board.NumColumns);
 
         return new Location { Row = row, Column = col };
+    }
+
+    private List<Location> GetShipCells(ShipOrientation orientation, int shipLength)
+    {
+        List<Location> shipCells = new List<Location> { GetRandomLocation() };
+        int offset = 1;
+
+        while (shipCells.Count < shipLength)
+        {
+            Location nextLocation;
+
+            if (orientation == ShipOrientation.Horizontal)
+                nextLocation = new Location { Row = shipCells[0].Row, Column = shipCells[0].Column + offset };
+            else
+                nextLocation = new Location { Row = shipCells[0].Row + offset, Column = shipCells[0].Column };
+
+            shipCells.Add(nextLocation);
+            offset++;
+        }
+
+        return shipCells;
     }
 }
 
