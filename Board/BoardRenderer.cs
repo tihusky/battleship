@@ -1,3 +1,5 @@
+namespace Battleship.Board;
+
 internal class BoardRenderer
 {
     private readonly string _rowLetters = "ABCDEFGHIJ";

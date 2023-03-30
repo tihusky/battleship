@@ -1,3 +1,12 @@
+namespace Battleship.Board;
+
+internal enum CellState
+{
+    NotTargeted,
+    Hit,
+    Miss
+}
+
 internal class Board
 {
     public const int NumRows = 10;

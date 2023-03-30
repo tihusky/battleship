@@ -1,3 +1,14 @@
+namespace Battleship;
+
+internal enum ShipType
+{
+    Carrier,
+    Battleship,
+    Cruiser,
+    Submarine,
+    Destroyer
+}
+
 internal class Ship
 {
     private List<Location> _cells;

@@ -1,3 +1,5 @@
+namespace Battleship;
+
 internal struct ShotResult
 {
     public ShipType? ShipType { get; init; }

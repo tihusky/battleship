@@ -1,3 +1,7 @@
+using Battleship.Interfaces;
+
+namespace Battleship.Board;
+
 internal class RandomBoardGenerator : IBoardGenerator
 {
     private Random _rng;

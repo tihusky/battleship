@@ -1,3 +1,5 @@
+namespace Battleship;
+
 internal struct Location
 {
     public int Row { get; init; }

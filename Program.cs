@@ -1,23 +1,9 @@
-﻿Board board = new Board();
-BoardRenderer renderer = new BoardRenderer();
+﻿namespace Battleship;
 
-while (true)
+internal class Program
 {
-    Console.Clear();
-    renderer.DisplayBoard(board);
-
-    Console.Write("Enter location: ");
-    Location loc = Location.FromString(Console.ReadLine());
-
-    if (Board.IsLocationValid(loc))
+    public static void Main()
     {
-        if (board.ResolveShot(loc))
-            Console.WriteLine("You hit something!");
-        else
-            Console.WriteLine("You missed!");
-    }
-    else
-    {
-        Console.WriteLine("Not a valid location.");
+        new Game().Run();
     }
 }
