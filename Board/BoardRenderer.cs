@@ -1,3 +1,5 @@
+using Battleship.UI;
+
 namespace Battleship.Board;
 
 internal class BoardRenderer
@@ -9,11 +11,11 @@ internal class BoardRenderer
         CellState[,] cells = board.Cells;
 
         // Column header
-        Console.WriteLine("   [1][2][3][4][5][6][7][8][9][10]");
+        ConsoleHelper.WriteLine("   [1][2][3][4][5][6][7][8][9][10]", ConsoleColor.DarkYellow);
 
         for (int row = 0; row < cells.GetLength(0); row++)
         {
-            Console.Write($"[{_rowLetters[row]}]");
+            ConsoleHelper.Write($"[{_rowLetters[row]}]", ConsoleColor.DarkYellow);
 
             for (int col = 0; col < cells.GetLength(1); col++)
             {
@@ -24,9 +26,7 @@ internal class BoardRenderer
                     _ => ('~', ConsoleColor.Blue)
                 };
 
-                Console.ForegroundColor = color;
-                Console.Write($"[{symbol}]");
-                Console.ResetColor();
+                ConsoleHelper.Write($"[{symbol}]", color);
             }
 
             Console.WriteLine();
