@@ -11,7 +11,7 @@ internal class BoardRenderer
         CellState[,] cells = board.Cells;
 
         // Column header
-        ConsoleHelper.WriteLine("   [1][2][3][4][5][6][7][8][9][10]", ConsoleColor.DarkYellow);
+        ConsoleHelper.WriteLine("\n   [1][2][3][4][5][6][7][8][9][10]", ConsoleColor.DarkYellow);
 
         for (int row = 0; row < cells.GetLength(0); row++)
         {
@@ -31,5 +31,7 @@ internal class BoardRenderer
 
             Console.WriteLine();
         }
+
+        Console.WriteLine();
     }
 }
