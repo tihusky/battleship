@@ -1,6 +1,8 @@
+using Battleship.Board;
+
 namespace Battleship.Interfaces;
 
 internal interface IBoardGenerator
 {
-    Battleship.Board.Board GenerateBoard();
+    BattleshipBoard GenerateBoard();
 }

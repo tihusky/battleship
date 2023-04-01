@@ -6,7 +6,7 @@ internal class BoardRenderer
 {
     private readonly string _rowLetters = "ABCDEFGHIJ";
 
-    public void DisplayBoard(Board board)
+    public void DisplayBoard(BattleshipBoard board)
     {
         CellState[,] cells = board.Cells;
 

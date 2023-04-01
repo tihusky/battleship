@@ -7,7 +7,7 @@ internal enum CellState
     Miss
 }
 
-internal class Board
+internal class BattleshipBoard
 {
     public const int NumRows = 10;
     public const int NumColumns = 10;
@@ -17,7 +17,7 @@ internal class Board
     // Need to use type casting here because the Clone method returns an object instance
     public CellState[,] Cells => (CellState[,])_cells.Clone();
 
-    public Board()
+    public BattleshipBoard()
     {
         _cells = new CellState[NumRows, NumColumns];
         _ships = new List<Ship>();
@@ -31,7 +31,7 @@ internal class Board
     {
         foreach (Location loc in newShip.Cells)
         {
-            if (!Board.IsLocationValid(loc))
+            if (!BattleshipBoard.IsLocationValid(loc))
                 throw new ArgumentOutOfRangeException();
 
             // Check if one of the existing ships occupies the same location
@@ -66,6 +66,19 @@ internal class Board
         _cells[location.Row, location.Column] = CellState.Miss;
 
         return new ShotResult { ShipType = null, ShipSunk = false };
+    }
+
+    public bool AllShipsSunk()
+    {
+        foreach (Ship ship in _ships)
+        {
+            bool allCellsHit = ship.Cells.TrueForAll(location => _cells[location.Row, location.Column] == CellState.Hit);
+
+            if (!allCellsHit)
+                return false;
+        }
+
+        return true;
     }
 
     public static bool IsLocationValid(Location location)

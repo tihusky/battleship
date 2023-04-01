@@ -11,9 +11,9 @@ internal class RandomBoardGenerator : IBoardGenerator
         _rng = new Random();
     }
 
-    public Board GenerateBoard()
+    public BattleshipBoard GenerateBoard()
     {
-        Board board = new Board();
+        BattleshipBoard board = new BattleshipBoard();
 
         PlaceDestroyer(board);
         PlaceSubmarine(board);
@@ -24,7 +24,7 @@ internal class RandomBoardGenerator : IBoardGenerator
         return board;
     }
 
-    private void PlaceDestroyer(Board board)
+    private void PlaceDestroyer(BattleshipBoard board)
     {
         while (true)
         {
@@ -35,7 +35,7 @@ internal class RandomBoardGenerator : IBoardGenerator
         }
     }
 
-    private void PlaceSubmarine(Board board)
+    private void PlaceSubmarine(BattleshipBoard board)
     {
         ShipOrientation orientation = GetRandomOrientation();
 
@@ -43,7 +43,7 @@ internal class RandomBoardGenerator : IBoardGenerator
         {
             List<Location> shipCells = GetShipCells(orientation, 2);
 
-            if (!shipCells.TrueForAll(Board.IsLocationValid))
+            if (!shipCells.TrueForAll(BattleshipBoard.IsLocationValid))
                 continue;
 
             if (board.AddShip(new Ship(ShipType.Submarine, shipCells)))
@@ -51,7 +51,7 @@ internal class RandomBoardGenerator : IBoardGenerator
         }
     }
 
-    private void PlaceCruiser(Board board)
+    private void PlaceCruiser(BattleshipBoard board)
     {
         ShipOrientation orientation = GetRandomOrientation();
 
@@ -59,7 +59,7 @@ internal class RandomBoardGenerator : IBoardGenerator
         {
             List<Location> shipCells = GetShipCells(orientation, 3);
 
-            if (!shipCells.TrueForAll(Board.IsLocationValid))
+            if (!shipCells.TrueForAll(BattleshipBoard.IsLocationValid))
                 continue;
 
             if (board.AddShip(new Ship(ShipType.Cruiser, shipCells)))
@@ -67,7 +67,7 @@ internal class RandomBoardGenerator : IBoardGenerator
         }
     }
 
-    private void PlaceBattleship(Board board)
+    private void PlaceBattleship(BattleshipBoard board)
     {
         ShipOrientation orientation = GetRandomOrientation();
 
@@ -75,7 +75,7 @@ internal class RandomBoardGenerator : IBoardGenerator
         {
             List<Location> shipCells = GetShipCells(orientation, 4);
 
-            if (!shipCells.TrueForAll(Board.IsLocationValid))
+            if (!shipCells.TrueForAll(BattleshipBoard.IsLocationValid))
                 continue;
 
             if (board.AddShip(new Ship(ShipType.Battleship, shipCells)))
@@ -83,7 +83,7 @@ internal class RandomBoardGenerator : IBoardGenerator
         }
     }
 
-    private void PlaceCarrier(Board board)
+    private void PlaceCarrier(BattleshipBoard board)
     {
         ShipOrientation orientation = GetRandomOrientation();
 
@@ -91,7 +91,7 @@ internal class RandomBoardGenerator : IBoardGenerator
         {
             List<Location> shipCells = GetShipCells(orientation, 5);
 
-            if (!shipCells.TrueForAll(Board.IsLocationValid))
+            if (!shipCells.TrueForAll(BattleshipBoard.IsLocationValid))
                 continue;
 
             if (board.AddShip(new Ship(ShipType.Carrier, shipCells)))
@@ -110,8 +110,8 @@ internal class RandomBoardGenerator : IBoardGenerator
 
     private Location GetRandomLocation()
     {
-        int row = _rng.Next(0, Board.NumRows);
-        int col = _rng.Next(0, Board.NumColumns);
+        int row = _rng.Next(0, BattleshipBoard.NumRows);
+        int col = _rng.Next(0, BattleshipBoard.NumColumns);
 
         return new Location { Row = row, Column = col };
     }
