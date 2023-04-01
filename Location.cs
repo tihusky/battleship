@@ -22,9 +22,12 @@ internal struct Location
             _ => Int32.MaxValue
         };
 
-        // Make the location zero-based (e.g. "A1" would be (0, 0))
-        int col = Convert.ToInt32(location.Substring(1)) - 1;
+        int column;
+        bool couldBeParsed = Int32.TryParse(location.Substring(1), out column);
 
-        return new Location { Row = row, Column = col };
+        if (!couldBeParsed)
+            column = Int32.MaxValue;
+
+        return new Location { Row = row, Column = column };
     }
 }

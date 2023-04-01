@@ -70,7 +70,7 @@ internal class Game
             ConsoleHelper.Write("Enter target: ");
             string? input = ConsoleHelper.GetUppercasedString();
 
-            if (input != null)
+            if (!String.IsNullOrEmpty(input))
                 target = Location.FromString(input);
         }
 
