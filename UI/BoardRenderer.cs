@@ -1,6 +1,6 @@
-using Battleship.UI;
+using Battleship.Board;
 
-namespace Battleship.Board;
+namespace Battleship.UI;
 
 internal class BoardRenderer
 {
