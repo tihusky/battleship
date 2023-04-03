@@ -25,7 +25,11 @@ internal struct Location
         int column;
         bool couldBeParsed = Int32.TryParse(location.Substring(1), out column);
 
-        if (!couldBeParsed)
+        if (couldBeParsed)
+            // Columns should internally start at 0, e.g. if the user enters "A1"
+            // the Location object stores the value 0 for both row and column
+            column -= 1;
+        else
             column = Int32.MaxValue;
 
         return new Location { Row = row, Column = column };
