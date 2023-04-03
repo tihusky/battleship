@@ -81,6 +81,14 @@ internal class BattleshipBoard
         return true;
     }
 
+    public CellState GetCellStateAt(Location location)
+    {
+        if (!IsLocationValid(location))
+            throw new ArgumentOutOfRangeException();
+
+        return _cells[location.Row, location.Column];
+    }
+
     public static bool IsLocationValid(Location location)
     {
         bool rowInBounds = location.Row >= 0 && location.Row < NumRows;

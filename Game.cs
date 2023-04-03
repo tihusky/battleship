@@ -34,8 +34,8 @@ internal class Game
             Console.Clear();
             ConsoleHelper.WriteLine($"{_activePlayer.Name}, it is your turn.");
             _renderer.DisplayBoard(_opponent.Board!);
-            Location target = GetTargetFromPlayer();
 
+            Location target = GetTargetFromPlayer();
             ShotResult result = _opponent.Board!.ResolveShot(target);
 
             if (result.IsHit)
@@ -65,7 +65,7 @@ internal class Game
     {
         Location target = new Location { Row = Int32.MaxValue, Column = Int32.MaxValue };
 
-        while (!BattleshipBoard.IsLocationValid(target))
+        while (!BattleshipBoard.IsLocationValid(target) || _opponent.Board!.GetCellStateAt(target) != CellState.NotTargeted)
         {
             ConsoleHelper.Write("Enter target: ");
             string? input = ConsoleHelper.GetUppercasedString();
